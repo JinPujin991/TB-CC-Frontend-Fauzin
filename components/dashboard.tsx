@@ -6,7 +6,6 @@ import { getApiService } from '@/lib/api-service';
 import { DynamicTable } from './dynamic-table';
 import { DynamicForm } from './dynamic-form';
 import { SchemaEditor } from './schema-editor';
-import { SchemaConfigEditor } from './schema-config-editor';
 import { ApiConfiguration } from './api-configuration';
 import { StatusIndicator } from './status-indicator';
 import { Modal } from './modal';
@@ -156,13 +155,6 @@ export function Dashboard() {
           {/* Sidebar */}
           <aside className="lg:col-span-1">
             <div className="space-y-4">
-              <div className="bg-card border border-border rounded-lg p-5 hover:shadow-md transition-shadow">
-                <h2 className="text-sm font-semibold text-foreground mb-4">
-                  Import Schema
-                </h2>
-                <SchemaConfigEditor />
-              </div>
-
               <div className="bg-card border border-border rounded-lg p-5 hover:shadow-md transition-shadow">
                 <h2 className="text-sm font-semibold text-foreground mb-4">
                   Konfigurasi API
