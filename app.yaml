@@ -1,4 +1,5 @@
 runtime: nodejs20
+service: fe-2311522003
 env_variables:
   NODE_ENV: production
 handlers:
