@@ -56,9 +56,13 @@ export class ApiService {
 
   async testConnection(): Promise<boolean> {
     try {
-      const response = await this.axiosInstance.get('/');
-      return response.status === 200 || response.status === 404;
-    } catch (error) {
+      const response = await this.axiosInstance.get('/health');
+      return response.status === 200 || response.status === 503;
+    } catch (error: any) {
+      // Even a 503 from /health means the backend is reachable
+      if (error.response && (error.response.status === 503 || error.response.status === 404)) {
+        return true;
+      }
       return false;
     }
   }
@@ -72,9 +76,16 @@ export class ApiService {
       });
       const endTime = performance.now();
 
+      const rawData = response.data;
+      const items = Array.isArray(rawData)
+        ? rawData
+        : Array.isArray(rawData.data)
+          ? rawData.data
+          : rawData.items || [];
+
       return {
-        data: Array.isArray(response.data) ? response.data : response.data.items || [],
-        total: response.data.total || (Array.isArray(response.data) ? response.data.length : 0),
+        data: items,
+        total: rawData.total || items.length,
         responseTime: endTime - startTime,
         status: response.status,
       };
@@ -172,8 +183,15 @@ export class ApiService {
       });
       const endTime = performance.now();
 
+      const rawData = response.data;
+      const items = Array.isArray(rawData)
+        ? rawData
+        : Array.isArray(rawData.data)
+          ? rawData.data
+          : rawData.items || [];
+
       return {
-        data: Array.isArray(response.data) ? response.data : response.data.items || [],
+        data: items,
         responseTime: endTime - startTime,
         status: response.status,
       };

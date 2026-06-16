@@ -195,7 +195,14 @@ export function Dashboard() {
 
           {/* Main Content */}
           <main className="lg:col-span-3">
-            {!api.isConnected ? (
+            {!mounted ? (
+              <div className="bg-card border border-border rounded-lg p-12 text-center">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                </div>
+                <p className="text-foreground font-medium mb-2">Memuat Antarmuka...</p>
+              </div>
+            ) : !api.isConnected ? (
               <div className="bg-card border border-border rounded-lg p-12 text-center hover:shadow-md transition-shadow">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                   <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
